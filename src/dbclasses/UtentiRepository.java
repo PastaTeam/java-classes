@@ -44,5 +44,10 @@ public class UtentiRepository implements IUtenti{
     public Utente getUtenteFromEmail(String email) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public Integer addUtente(String nome, String cognome, String email, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

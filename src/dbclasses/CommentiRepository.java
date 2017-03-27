@@ -67,5 +67,10 @@ public class CommentiRepository implements ICommenti{
       }
       return commento;
     }
- }
+
+    @Override
+    public Integer addCommento(String commento, Integer prodotto, Integer utente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}
     

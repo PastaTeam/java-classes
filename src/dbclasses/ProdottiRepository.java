@@ -79,7 +79,12 @@ public class ProdottiRepository implements IProdotti{
           e.printStackTrace();
       }
         return prodotto;
-    }    
+    }
+
+    @Override
+    public Integer addProdotto(String nome, String descrizione, Integer azienda) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
     
 

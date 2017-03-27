@@ -12,4 +12,14 @@ public interface ICommenti {
      */
     public List<Commento> getCommentiForProdotto(Integer ID_Prodotto);
     public Commento getCommentoFromID(Integer ID);
+
+    /**
+     * Aggiunge un commento
+     * @param commento testo del commento
+     * @param prodotto prodotto commentato
+     * @param utente utente che commenta
+     * @return null in caso di errore, altrimenti id del commento
+     */
+
+    public Integer addCommento(String commento, Integer prodotto, Integer utente);
 }

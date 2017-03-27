@@ -20,4 +20,14 @@ public interface IProdotti {
 
     public List<Prodotto> getListaProdottiAzienda(Integer ID_Azienda);
     public Prodotto getProdottoFromID(Integer ID);
+
+    /**
+     * Aggiunge un prodotto
+     * @param nome nome del prodotto
+     * @param descrizione descrizione
+     * @param azienda azienda
+     * @return null in caso di errore, altrimenti id del commento
+     */
+
+    public Integer addProdotto(String nome, String descrizione, Integer azienda);
 }

@@ -86,5 +86,10 @@ public class AziendaRepository implements IAziende{
       }
       return azienda;
     }
-    
+
+    @Override
+    public Integer addAzienda(String nome, String email, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
