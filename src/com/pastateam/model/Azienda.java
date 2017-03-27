@@ -15,6 +15,10 @@ public class Azienda {
         this.password_hash = password_hash;
     }
 
+    public Azienda() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getID() {
         return ID;
     }

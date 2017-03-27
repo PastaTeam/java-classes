@@ -7,6 +7,13 @@ package dbclasses;
 
 import com.pastateam.dbinterface.IAziende;
 import com.pastateam.model.Azienda;
+import com.pastateam.utils.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,12 +24,45 @@ public class AziendaRepository implements IAziende{
 
     @Override
     public List<Azienda> getListaAziende() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Connection conn = DatabaseConnection.getConnection();
+      Statement stmt;
+      ArrayList<Azienda> aziende = new ArrayList();
+      try{
+          stmt = conn.createStatement();
+          String sql = "SELECT * FROM `aziende`";
+          ResultSet rs = stmt.executeQuery(sql);
+          String stamp;
+          while (rs.next()){
+              aziende.add(new Azienda(rs.getInt("ID"),rs.getString("email"), rs.getString("nome"), rs.getString("password") ));
+          }
+      }
+      catch(SQLException e){
+          e.printStackTrace();
+      }
+        return aziende;
     }
 
     @Override
     public Azienda getAziendaFromID(Integer ID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Connection conn = DatabaseConnection.getConnection();
+      PreparedStatement stmt;
+      Azienda azienda = null;
+      try{
+          String sql = "SELECT * FROM aziende WHERE ID = ?";
+          stmt = conn.prepareStatement(sql);
+          stmt.setInt(1, ID);
+          ResultSet rs = stmt.executeQuery();
+          if(rs.next()){
+              azienda = (new Azienda(rs.getInt("ID"),rs.getString("email"), rs.getString("nome"), rs.getString("password") ));
+          }
+          else{
+              rs.close();
+          }
+      }
+      catch(SQLException e){
+          e.printStackTrace();
+      }
+      return azienda;
     }
 
     @Override
