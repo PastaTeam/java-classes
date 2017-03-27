@@ -31,7 +31,6 @@ public class AziendaRepository implements IAziende{
           stmt = conn.createStatement();
           String sql = "SELECT * FROM `aziende`";
           ResultSet rs = stmt.executeQuery(sql);
-          String stamp;
           while (rs.next()){
               aziende.add(new Azienda(rs.getInt("ID"),rs.getString("email"), rs.getString("nome"), rs.getString("password") ));
           }
