@@ -67,7 +67,25 @@ public class AziendaRepository implements IAziende{
 
     @Override
     public Azienda getAziendaFromEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Connection conn = DatabaseConnection.getConnection();
+      PreparedStatement stmt;
+      Azienda azienda = null;
+      try{
+          String sql = "SELECT * FROM aziende WHERE email = ?";
+          stmt = conn.prepareStatement(sql);
+          stmt.setString(1, email);
+          ResultSet rs = stmt.executeQuery();
+          if(rs.next()){
+              azienda = (new Azienda(rs.getInt("ID"),rs.getString("email"), rs.getString("nome"), rs.getString("password") ));
+          }
+          else{
+              rs.close();
+          }
+      }
+      catch(SQLException e){
+          e.printStackTrace();
+      }
+      return azienda;
     }
     
 }
