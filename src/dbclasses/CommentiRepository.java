@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -69,8 +71,26 @@ public class CommentiRepository implements ICommenti{
     }
 
     @Override
-    public Integer addCommento(String commento, Integer prodotto, Integer utente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Integer addCommento(String commento, Integer prodotto, Integer utente)
+    {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt;
+            String sql = "INSERT INTO commenti(commento,prodotto,utente)\n" +
+                    "VALUES (?,?,?)";
+            stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1,commento);
+            stmt.setInt(2,prodotto);
+            stmt.setInt(3,utente);
+            ResultSet rs = stmt.getGeneratedKeys();
+            int risultato = 0;
+            if (rs.next()){
+                risultato=rs.getInt(1);
+            }
+            return risultato;
+        } catch (SQLException ex) {
+            return null;
+        } 
     }
 }
     
