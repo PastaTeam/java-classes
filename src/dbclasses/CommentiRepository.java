@@ -34,11 +34,8 @@ public class CommentiRepository implements ICommenti{
          stmt = conn.prepareStatement(sql);
          stmt.setInt(1, ID_Prodotto);
          ResultSet rs = stmt.executeQuery();
-         if(rs.next()){
+         while(rs.next()){
              commento.add(new Commento (rs.getInt("ID"), rs.getString("commento"), rs.getDate("timestamp"), rs.getInt("prodotto"), rs.getInt("utente")));
-         }
-         else{
-             rs.close();
          }
       }
       catch(SQLException e){
