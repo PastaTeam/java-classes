@@ -8,6 +8,7 @@ package dbclasses;
 import com.pastateam.dbinterface.IAziende;
 import com.pastateam.model.Azienda;
 import com.pastateam.utils.DatabaseConnection;
+import com.pastateam.utils.SHA1;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -97,7 +98,7 @@ public class AziendaRepository implements IAziende{
           stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
           stmt.setString(1, email);
           stmt.setString(2, nome);
-          stmt.setString(3, password);
+          stmt.setString(3, SHA1.hash(password));
           stmt.executeUpdate(); 
           ResultSet rs = stmt.getGeneratedKeys();
           if(rs.next()){
