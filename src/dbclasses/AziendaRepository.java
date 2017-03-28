@@ -30,7 +30,7 @@ public class AziendaRepository implements IAziende{
       ArrayList<Azienda> aziende = new ArrayList();
       try{
           stmt = conn.createStatement();
-          String sql = "SELECT * FROM `aziende`";
+          String sql = "SELECT * FROM `aziende` ORDER BY nome";
           ResultSet rs = stmt.executeQuery(sql);
           while (rs.next()){
               aziende.add(new Azienda(rs.getInt("ID"),rs.getString("email"), rs.getString("nome"), rs.getString("password") ));
