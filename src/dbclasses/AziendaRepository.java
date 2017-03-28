@@ -89,7 +89,25 @@ public class AziendaRepository implements IAziende{
 
     @Override
     public Integer addAzienda(String nome, String email, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Connection conn = DatabaseConnection.getConnection();
+      PreparedStatement stmt; 
+      int risultato = 0;
+      try{
+          String sql = "INSERT INTO aziende (email, nome, password) VALUES (?,?,?)";
+          stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+          stmt.setString(1, email);
+          stmt.setString(2, nome);
+          stmt.setString(3, password);
+          stmt.executeUpdate(); 
+          ResultSet rs = stmt.getGeneratedKeys();
+          if(rs.next()){
+              risultato = rs.getInt(1);
+          }
+      }
+      catch(SQLException e){
+          return null;
+      }
+      return risultato;
     }
 
 }

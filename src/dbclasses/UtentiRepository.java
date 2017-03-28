@@ -20,7 +20,6 @@ public class UtentiRepository implements IUtenti{
         ArrayList<Utente> lista = new ArrayList();
         Connection conn = DatabaseConnection.getConnection();
         Statement stmt;
-        ArrayList<Azienda> aziende = new ArrayList();
         try{
             stmt = conn.createStatement();
             String sql = "SELECT * FROM `utenti`";
@@ -37,17 +36,65 @@ public class UtentiRepository implements IUtenti{
 
     @Override
     public Utente getUtenteFromID(Integer ID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Utente temp = null;
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stmt;
+        try{
+            String sql = "SELECT * FROM `utenti` WHERE  ID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, ID);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+            temp = new Utente(rs.getInt("ID"), rs.getString("email"), rs.getString("nome"), rs.getString("cognome"), rs.getString("password"));
+         }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return temp;
     }
 
     @Override
     public Utente getUtenteFromEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Utente temp = null;
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stmt;
+        try{
+            String sql = "SELECT * FROM `utenti` WHERE  email = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+            temp = new Utente(rs.getInt("ID"), rs.getString("email"), rs.getString("nome"), rs.getString("cognome"), rs.getString("password"));
+         }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return temp;
     }
 
     @Override
     public Integer addUtente(String nome, String cognome, String email, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stmt;
+        int risultato = 0;
+        try{
+            String sql = "INSERT INTO `utenti`(`nome`, `cognome`, `email`, `password`) VALUES (?,?,?,?)";
+            stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, nome);
+            stmt.setString(2, cognome);
+            stmt.setString(3, email);
+            stmt.setString(4, password);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+            risultato = rs.getInt(1);}
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return risultato;
     }
 
 }
