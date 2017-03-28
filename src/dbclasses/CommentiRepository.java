@@ -70,6 +70,7 @@ public class CommentiRepository implements ICommenti{
       return commento;
     }
 
+    /*aggiunge un commento al db, ritorna l'id del commento appena aggiunto*/
     @Override
     public Integer addCommento(String commento, Integer prodotto, Integer utente)
     {
@@ -84,7 +85,7 @@ public class CommentiRepository implements ICommenti{
             stmt.setInt(3,utente);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
-            int risultato = 0;
+            Integer risultato = null;
             if (rs.next()){
                 risultato=rs.getInt(1);
             }
