@@ -4,6 +4,8 @@ import com.pastateam.dbinterface.IUtenti;
 import com.pastateam.model.Azienda;
 import com.pastateam.model.Utente;
 import com.pastateam.utils.DatabaseConnection;
+import com.pastateam.utils.SHA1;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,7 +87,7 @@ public class UtentiRepository implements IUtenti{
             stmt.setString(1, nome);
             stmt.setString(2, cognome);
             stmt.setString(3, email);
-            stmt.setString(4, password);
+            stmt.setString(4, SHA1.hash(password));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()){
