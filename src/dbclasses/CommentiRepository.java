@@ -77,11 +77,12 @@ public class CommentiRepository implements ICommenti{
             Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt;
             String sql = "INSERT INTO commenti(commento,prodotto,utente)\n" +
-                    "VALUES (?,?,?)";
+                         "VALUES (?,?,?)";
             stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1,commento);
             stmt.setInt(2,prodotto);
             stmt.setInt(3,utente);
+            stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             int risultato = 0;
             if (rs.next()){
